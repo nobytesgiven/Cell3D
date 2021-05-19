@@ -90,7 +90,10 @@ int main(int argc, char **argv) {
   L = luaL_newstate();
   luaL_openlibs(L);
 
-  luaL_loadfile(L, argv[1]);
+  if (luaL_loadfile(L, argv[1]) == LUA_ERRFILE) {
+    puts("ERROR: Invalid .lua input file");
+    exit(1);
+  }
   lua_pcall(L, 0, LUA_MULTRET, 0);
 
   lua_getglobal(L, "setup");
@@ -208,6 +211,7 @@ int main(int argc, char **argv) {
       theta -= 1 * dt;
 
     zoom -= 1.5 * GetMouseWheelMove() * dt;
+    zoom = 0.9f > zoom ? 0.9f : zoom;
 
     if (IsMouseButtonDown(0)) { // Rotate camera with mouse
       int mx = GetMouseX();
