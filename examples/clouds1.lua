@@ -21,7 +21,7 @@ local maps = {
 	current = {}
 }
 
-local size = 35
+local size = 40
 local cellUpdateRate = 1/2
 
 function clampWrapAround(val, lo, hi) -- Clamp wrap around
